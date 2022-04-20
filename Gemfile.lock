@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    brightline (0.1.0)
+    brightline (0.0.1)
       activesupport
 
 GEM
