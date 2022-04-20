@@ -6,15 +6,15 @@ Gem::Specification.new do |spec|
   spec.name = "brightline"
   spec.version = Brightline::VERSION
   spec.authors = ["Adam Strickland"]
-  spec.email = ["adam.strickland@gmail.com"]
+  spec.email = ["adam.strickland@hopin.to"]
 
   spec.summary = "Serverless tooling"
   spec.description = spec.summary
-  spec.homepage = "https://github.com/hopin-team/brightline"
+  spec.homepage = "https://github.com/hopin.com/product/brightline"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 2.6.0"
+  spec.required_ruby_version = ">= 2.7.4"
 
-  spec.metadata["allowed_push_host"] = "https://rubygems.org"
+  spec.metadata["allowed_push_host"] = "https://hopinto.jfrog.io"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
