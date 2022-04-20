@@ -20,7 +20,7 @@ publish:
     touch ${HOME}/.gem/credentials
     chmod 0600 ${HOME}/.gem/credentials
     printf -- "---\n:jfrog: Basic $(echo -n $ARTIFACTORY_API_USER:$ARTIFACTORY_API_TOKEN | base64 -w 0)\n" > ${HOME}/.gem/credentials
-    gem build hopin-money-utils.gemspec
-    GEM="hopin-money-utils-$(ruby -e "puts File.read('lib/hopin/money_utils/version.rb').match(/VERSION = '(.+)'$/)[1]").gem"
+    gem build brightline.gemspec
+    GEM="brightline-$(ruby -e "puts File.read('lib/brightline/version.rb').match(/VERSION = '(.+)'$/)[1]").gem"
     gem push --KEY jfrog --host ${ARTIFACTORY_API_URL_RUBY} ${GEM}
 
