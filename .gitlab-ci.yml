@@ -21,6 +21,6 @@ publish:
     chmod 0600 ${HOME}/.gem/credentials
     printf -- "---\n:jfrog: Basic $(echo -n $ARTIFACTORY_API_USER:$ARTIFACTORY_API_TOKEN | base64 -w 0)\n" > ${HOME}/.gem/credentials
     gem build brightline.gemspec
-    GEM="brightline-$(ruby -e "puts File.read('lib/brightline/version.rb').match(/VERSION = '(.+)'$/)[1]").gem"
+    GEM="brightline-$(ruby -e "puts File.read('lib/brightline/version.rb').match(/VERSION = [\"'](.+)[\"']$/)[1]").gem"
     gem push --KEY jfrog --host ${ARTIFACTORY_API_URL_RUBY} ${GEM}
 
