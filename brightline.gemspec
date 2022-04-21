@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = spec.summary
   spec.homepage = "https://github.com/hopin.com/product/brightline"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 2.7.4"
+  # spec.required_ruby_version = ">= 2.7"
 
   spec.metadata["allowed_push_host"] = "https://hopinto.jfrog.io"
 
@@ -36,5 +36,5 @@ Gem::Specification.new do |spec|
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
-  spec.add_dependency "activesupport"
+  spec.add_dependency "activesupport", "~> 7.0.2"
 end
