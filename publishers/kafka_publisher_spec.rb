@@ -28,17 +28,15 @@ RSpec.describe Publishers::KafkaPublisher do
           cluster_arn: cluster_arn,
         })
       end
-      let(:client) do
-        double.tap do |d|
-          allow(d).to receive(:get_bootstrap_brokers).with(cluster_arn: cluster_arn) do
-            double(bootstrap_broker_sasl_string: sasl_broker_url,
-                   bootstrap_broker_string: plain_broker_url)
-          end
-        end
+      let(:client) { double }
+      let(:broker_config) do
+        double(bootstrap_broker_string_sasl_scram: sasl_broker_url,
+               bootstrap_broker_string: plain_broker_url)
       end
 
       before do
         allow(Aws::Kafka::Client).to receive(:new).and_return(client)
+        allow(client).to receive(:get_bootstrap_brokers).with(cluster_arn: cluster_arn).and_return(broker_config)
       end
 
       context "when initialized with :secrets_arn" do
