@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe Models::Base, :mixin do
@@ -14,12 +16,14 @@ RSpec.describe Models::Base, :mixin do
 
     context "when the message is a string" do
       let(:message) { "blurg" }
+
       it { is_expected.to be_falsy }
     end
 
     context "when the message is a hash" do
       context "without a :data key" do
         let(:message) { {} }
+
         it { is_expected.to be_falsy }
       end
 
@@ -28,6 +32,7 @@ RSpec.describe Models::Base, :mixin do
 
         context "and the :data key is a string" do
           let(:data) { "foo" }
+
           it { is_expected.to be_falsy }
         end
 
@@ -36,6 +41,7 @@ RSpec.describe Models::Base, :mixin do
             let(:data) { { foo: "foo" } }
 
             it { is_expected.to be_a klass }
+
             it "has nil attributes" do
               expect(subject.bar).to be_nil
             end
@@ -55,6 +61,7 @@ RSpec.describe Models::Base, :mixin do
               let(:message) do
                 super().deep_stringify_keys
               end
+
               it { is_expected.to be_a klass }
             end
           end
@@ -63,4 +70,3 @@ RSpec.describe Models::Base, :mixin do
     end
   end
 end
-

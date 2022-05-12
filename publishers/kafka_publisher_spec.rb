@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe Publishers::KafkaPublisher do
@@ -11,8 +13,8 @@ RSpec.describe Publishers::KafkaPublisher do
       let(:broker_url) { Faker::Internet.url }
       let(:options) do
         super().merge({
-          broker_url: broker_url,
-        })
+                        broker_url: broker_url,
+                      })
       end
 
       it { is_expected.to eq broker_url }
@@ -25,8 +27,8 @@ RSpec.describe Publishers::KafkaPublisher do
       let(:cluster_arn) { "cluster_arn" }
       let(:options) do
         super().merge({
-          cluster_arn: cluster_arn,
-        })
+                        cluster_arn: cluster_arn,
+                      })
       end
       let(:client) { double }
       let(:broker_config) do
