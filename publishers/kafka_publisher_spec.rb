@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe Publishers::KafkaPublisher do
   let(:described_instance) { described_class.new(topic: "foo", **options) }
   let(:options) { {} }
 
-  describe "#kafka_url" do
-    subject { described_instance.kafka_url }
+  describe "#bootstrap_servers" do
+    subject { described_instance.bootstrap_servers }
 
     context "when initialized with a :broker_url" do
       let(:broker_url) { Faker::Internet.url }
       let(:options) do
         super().merge({
-          broker_url: broker_url,
-        })
+                        broker_url: broker_url,
+                      })
       end
 
       it { is_expected.to eq broker_url }
@@ -25,8 +27,8 @@ RSpec.describe Publishers::KafkaPublisher do
       let(:cluster_arn) { "cluster_arn" }
       let(:options) do
         super().merge({
-          cluster_arn: cluster_arn,
-        })
+                        cluster_arn: cluster_arn,
+                      })
       end
       let(:client) { double }
       let(:broker_config) do

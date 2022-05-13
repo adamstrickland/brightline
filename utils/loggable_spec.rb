@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 require "./lib/utils/loggable"
 
@@ -25,11 +27,13 @@ RSpec.describe ::Utils::Loggable, :mixin, quiet: true do
 
   describe ".error" do
     subject { klass.error(message) }
-    it_should_behave_like "delegates calls to the logger"
+
+    it_behaves_like "delegates calls to the logger"
   end
 
   describe "#error" do
     subject { described_instance.error(message) }
-    it_should_behave_like "delegates calls to the logger"
+
+    it_behaves_like "delegates calls to the logger"
   end
 end

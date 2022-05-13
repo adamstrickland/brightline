@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 require "./lib/intents/mutate"
 
@@ -28,4 +30,3 @@ RSpec.describe ::Intents::Mutate, :mixin do
     it { expect(subject[:changeset][:foo]).to be_an Array }
   end
 end
-

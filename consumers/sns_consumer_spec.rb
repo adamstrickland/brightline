@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe Consumers::SnsConsumer, :mixin do
   describe ".call" do
     subject { klass.call(event: event, context: {}) }
 
-    let(:handler) { ->(_){ true } }
+    let(:handler) { ->(_) { true } }
 
     before do
       klass.send(:define_method, :call, handler)
@@ -16,10 +18,10 @@ RSpec.describe Consumers::SnsConsumer, :mixin do
           "Records" => [
             {
               "Sns" => {
-                "Message" => message
-              }
-            }
-          ]
+                "Message" => message,
+              },
+            },
+          ],
         }
       end
       let(:payload) do
@@ -32,6 +34,7 @@ RSpec.describe Consumers::SnsConsumer, :mixin do
 
       context "and the message is a raw string" do
         let(:message) { "some string" }
+
         it { is_expected.to be_an Array }
         it { is_expected.to match_array [true] }
       end
@@ -44,6 +47,7 @@ RSpec.describe Consumers::SnsConsumer, :mixin do
 
         context "still unparsed string" do
           let(:message) { JSON.dump(payload) }
+
           it { is_expected.to be_an Array }
           it { is_expected.to match_array [true] }
         end
@@ -51,6 +55,7 @@ RSpec.describe Consumers::SnsConsumer, :mixin do
 
       context "and when the underlying call raises an error" do
         let(:handler) { ->(_) { raise "ACK!" } }
+
         it { is_expected.to be_an Array }
         it { is_expected.to contain_exactly(kind_of(StandardError)) }
       end
