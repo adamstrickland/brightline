@@ -6,8 +6,8 @@ RSpec.describe Publishers::KafkaPublisher do
   let(:described_instance) { described_class.new(topic: "foo", **options) }
   let(:options) { {} }
 
-  describe "#kafka_url" do
-    subject { described_instance.kafka_url }
+  describe "#bootstrap_servers" do
+    subject { described_instance.bootstrap_servers }
 
     context "when initialized with a :broker_url" do
       let(:broker_url) { Faker::Internet.url }
