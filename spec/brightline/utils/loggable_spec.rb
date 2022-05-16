@@ -19,8 +19,9 @@ RSpec.describe Brightline::Utils::Loggable, :mixin, quiet: true do
     let(:message) { "shucks!" }
 
     it "calls #error on the logger" do
-      subject
-      expect(logger).to have_received(:error).with(message)
+      expect do
+        subject
+      end.to send_to_stdout message
     end
   end
 

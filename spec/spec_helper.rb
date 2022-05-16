@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 require "faker"
+require "pry"
+
 require "brightline"
+
 %w[
   support/**/*.rb
 ].each do |glob|

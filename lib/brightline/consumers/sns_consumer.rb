@@ -22,12 +22,10 @@ module Brightline
       ].freeze
 
       class_methods do
-        def call(event:, context:)
-          wrap(event: event, context: context) do
-            debug "Consuming using #{self} ..."
-            new.handle_event(event).tap do
-              debug "... consumed"
-            end
+        def handle(event, context)
+          debug "Consuming using #{self} ..."
+          new.handle_event(event).tap do
+            debug "... consumed"
           end
         end
       end

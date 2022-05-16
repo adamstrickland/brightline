@@ -2,12 +2,14 @@ module Brightline
   module Handler
     extend ActiveSupport::Concern
 
+    included do
+      include Utils::Loggable
+    end
+
     class_methods do
-      def wrap(event:, context:, &block)
+      def call(event:, context:)
         debug "Handling event #{event.inspect} ..."
-        if block_given?
-          block.call
-        end.tap do
+        handle(event, context).tap do
           debug "... handled"
         end
       end
