@@ -21,10 +21,14 @@ module Brightline
         MESSAGE_KEY = "Message",
       ].freeze
 
-      def call(event:, **_opts)
-        debug "Consuming using #{self} event #{event.inspect} ..."
-        new.handle_event(event).tap do
-          debug "... consumed"
+      class_methods do
+        def call(event:, context:)
+          wrap(event: event, context: context) do
+            debug "Consuming using #{self} ..."
+            new.handle_event(event).tap do
+              debug "... consumed"
+            end
+          end
         end
       end
 
