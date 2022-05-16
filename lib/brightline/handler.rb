@@ -1,3 +1,5 @@
+require "datadog/lambda"
+
 module Brightline
   module Handler
     extend ActiveSupport::Concern
@@ -8,9 +10,11 @@ module Brightline
 
     class_methods do
       def call(event:, context:)
-        debug "Handling event #{event.inspect} ..."
-        handle(event, context).tap do
-          debug "... handled"
+        Datadog::Lambda.wrap(event, context) do
+          debug "Handling event #{event.inspect} ..."
+          handle(event, context).tap do
+            debug "... handled"
+          end
         end
       end
     end
