@@ -6,24 +6,44 @@ module QuietSupport
   extend ActiveSupport::Concern
 
   included do
-    let(:logger) do
-      double error: true,
-             warn: true,
-             info: true,
-             debug: true
+    around do |ex|
+      o = $stdout
+      e = $stderr
+      $stderr = StringIO.new
+      $stdout = StringIO.new
+
+      ex.run
+
+      $stderr = e
+      $stdout = o
+    end
+  end
+
+  class StreamMatcher
+    def initialize(expected)
+      @expected = if expected.is_a? String
+                    Regexp.new(Regexp.quote(expected))
+                  else
+                    expected
+                  end
     end
 
-    before do
-      allow(Logger).to receive(:new).with(any_args).and_return(logger)
+    def matches?(actual)
+      return false unless actual.is_a?(Proc)
+
+      return false unless @expected.is_a?(Regexp)
+
+      actual.call
+
+      $stdout.string =~ @expected
     end
 
-    after do
-      "@logger".tap do |varname|
-        if described_class.instance_variables.include?(varname.to_sym)
-          described_class.instance_variable_set(varname,
-                                                nil)
-        end
-      end
+    def supports_block_expectations?
+      true
     end
+  end
+
+  def send_to_stdout(expected)
+    StreamMatcher.new(expected)
   end
 end

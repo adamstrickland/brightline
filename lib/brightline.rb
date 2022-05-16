@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+require "active_support/concern"
+require "aws-sdk-core"
+
 require_relative "brightline/version"
 
 require_relative "brightline/fact_consumer"
 
+require_relative "brightline/handler"
 require_relative "brightline/consumers/sns_consumer"
 require_relative "brightline/intents/generate"
 require_relative "brightline/intents/intent"

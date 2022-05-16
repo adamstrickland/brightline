@@ -42,6 +42,9 @@ Lint/RaiseException:
 Lint/StructNewOverride:
   Enabled: true
 
+Lint/UnusedMethodArgument:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
   - ./*.gemspec
@@ -78,6 +81,10 @@ RSpec/ExampleLength:
 
 RSpec/ExpectInHook:
   Enabled: false
+
+RSpec/ExpectOutput:
+  Exclude:
+  - spec/support/quiet_support.rb
 
 RSpec/Focus:
   AutoCorrect: false
