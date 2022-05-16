@@ -2,13 +2,20 @@ stages:
   - test
   - publish
 
-test:
+test: &test
+  stage: test
+  image: ruby:2.7
+  before_script:
+    - bundle install
+  script:
+    - bundle exec rspec
+
+lint:
+  <<: *test
   stage: test
   image: ruby:2.7
   script:
-    - bundle install
     - bundle exec rubocop
-    - bundle exec rspec
 
 publish:
   stage: publish
