@@ -1,5 +1,137 @@
+---
+
+inherit_from: ".rubocop_todo.yml"
+
+require:
+- rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.7.4
+  NewCops: enable
+  Exclude:
+  - bin/webpack*
+  - db/migrate/*trigger*.rb
+  - db/schema.rb
+  - node_modules/**/*
+  - tmp/**/*
+  - vendor/**/*
+
+Bundler/OrderedGems:
+  Enabled: true
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+  AutoCorrect: true
+  # IgnoredPatterns:
+  # - "\\A#"
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+  - spec/**/**/**
+
+Lint/EmptyBlock:
+  Exclude:
+  - spec/support/**/*.rb
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Metrics/BlockLength:
+  Exclude:
+  - ./*.gemspec
+  - config/routes.rb
+  - spec/**/*.rb
+  - lib/brightline/consumers/sns_consumer.rb
+  - lib/**/*.rake
+  - Guardfile
+  - Rakefile
+
+Metrics/ClassLength:
+  Max: 600
+
+Metrics/MethodLength:
+  Exclude:
+  - spec/support/**/*.rb
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/Capybara/FeatureMethods:
+  Exclude:
+  - spec/features/**/*
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/Dialect:
+  PreferredMethods:
+    setup: before
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/ExpectInHook:
+  Enabled: false
+
+RSpec/Focus:
+  AutoCorrect: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 9
+
+RSpec/VerifiedDoubles:
+  Exclude:
+  - spec/**/*.rb
+
+Style/AccessorGrouping:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: nested
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always_true
+  AutoCorrect: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: true
+
+Style/RegexpLiteral:
+  Exclude:
+  - Guardfile
 
 Style/StringLiterals:
   Enabled: true
@@ -9,8 +141,11 @@ Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
 
-Layout/LineLength:
-  Max: 120
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
 
-Gemspec/RequiredRubyVersion:
-  Enabled: false
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma

@@ -1,0 +1,11 @@
+Lint/EmptyFile:
+  Exclude:
+  - spec/brightline/intents/**/*.rb
+  - spec/brightline/messages/**/*.rb
+  - spec/brightline/publishers/**/*.rb
+
+RSpec/EmptyExampleGroup:
+  Exclude:
+  - spec/brightline/intents/**/*.rb
+
+

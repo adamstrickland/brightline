@@ -48,7 +48,7 @@ module Brightline
 
       def kafka_options
         base_options = {
-          'bootstrap.servers': bootstrap_servers,
+          "bootstrap.servers": bootstrap_servers,
         }
 
         return base_options unless sasl?
@@ -56,9 +56,9 @@ module Brightline
         u, p = secrets.then { |h| [h[:username], h[:password]] }
 
         base_options.merge({
-                             'sasl.mechanism': "SCRAM-SHA-512",
-                             'sasl.username': u,
-                             'sasl.password': p,
+                             "sasl.mechanism": "SCRAM-SHA-512",
+                             "sasl.username": u,
+                             "sasl.password": p,
                            })
       end
 
