@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Models::Base, :mixin do
+RSpec.describe Brightline::Models::Base, :mixin do
   let(:klass) do
     Class.new do
       attr_accessor :bar

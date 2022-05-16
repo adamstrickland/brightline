@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Intents::Intent, :mixin do
+RSpec.describe Brightline::Intents::Intent, :mixin do
   describe "#as_meta_without_operation" do
     subject { described_instance.as_meta_without_operation }
 

@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Publishers::KafkaPublisher do
+RSpec.describe Brightline::Publishers::KafkaPublisher do
   let(:described_instance) { described_class.new(topic: "foo", **options) }
   let(:options) { {} }
 

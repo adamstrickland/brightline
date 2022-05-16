@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "./lib/intents/mutate"
 
-RSpec.describe ::Intents::Mutate, :mixin do
+RSpec.describe Brightline::Intents::Mutate, :mixin do
   let(:klass) do
     Class.new do
       # mocking this method, b/c we're assuming the concrete Intent classes are

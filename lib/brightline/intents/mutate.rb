@@ -1,23 +1,25 @@
 # frozen_string_literal: true
 
 require "active_support/concern"
-require "./lib/intents/intent"
+require_relative "./intent"
 
-module Intents
-  module Mutate
-    extend ActiveSupport::Concern
+module Brightline
+  module Intents
+    module Mutate
+      extend ActiveSupport::Concern
 
-    included do
-      include ::Intents::Intent
-    end
+      included do
+        include Intents::Intent
+      end
 
-    def as_meta
-      as_meta_without_operation.merge operation: :update, changeset: changeset
-    end
+      def as_meta
+        as_meta_without_operation.merge operation: :update, changeset: changeset
+      end
 
-    def changeset
-      members.to_h do |attr|
-        [attr, []]
+      def changeset
+        members.to_h do |attr|
+          [attr, []]
+        end
       end
     end
   end

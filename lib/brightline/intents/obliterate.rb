@@ -1,18 +1,20 @@
 # frozen_string_literal: true
 
 require "active_support/concern"
-require "./lib/intents/intent"
+require_relative "./intent"
 
-module Intents
-  module Obliterate
-    extend ActiveSupport::Concern
+module Brightline
+  module Intents
+    module Obliterate
+      extend ActiveSupport::Concern
 
-    included do
-      include ::Intents::Intent
-    end
+      included do
+        include Intents::Intent
+      end
 
-    def as_meta
-      as_meta_without_operation.merge operation: :delete
+      def as_meta
+        as_meta_without_operation.merge operation: :delete
+      end
     end
   end
 end

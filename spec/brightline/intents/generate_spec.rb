@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Intents::Generate, :mixin do
+RSpec.describe Brightline::Intents::Generate, :mixin do
   describe "#as_meta" do
     subject { described_instance.as_meta }
 

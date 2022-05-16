@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "./lib/utils/loggable"
 
-RSpec.describe ::Utils::Loggable, :mixin, quiet: true do
+RSpec.describe Brightline::Utils::Loggable, :mixin, quiet: true do
   it { expect(klass).to respond_to :error }
   it { expect(klass).to respond_to :warn }
   it { expect(klass).to respond_to :info }

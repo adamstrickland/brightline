@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Consumers::SnsConsumer, :mixin do
+RSpec.describe Brightline::Consumers::SnsConsumer, :mixin do
   describe ".call" do
     subject { klass.call(event: event, context: {}) }
 
