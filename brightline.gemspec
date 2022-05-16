@@ -41,6 +41,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "aws-sdk-kafka"
   spec.add_dependency "aws-sdk-secretsmanager"
   spec.add_dependency "aws-sdk-sns"
+  spec.add_dependency "sentry-lambda"
+  spec.add_dependency "sentry-ruby", "~> 4.5.2"
   spec.add_dependency "waterdrop"
 
   spec.add_development_dependency "faker"
