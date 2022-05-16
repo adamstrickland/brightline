@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require "json"
-require "active_support/concern"
-require_relative "../utils/loggable"
+
+require "brightline/handler"
+require "brightline/utils/loggable"
 
 module Brightline
   module Consumers
@@ -10,6 +11,7 @@ module Brightline
       extend ActiveSupport::Concern
 
       included do
+        include Handler
         include Utils::Loggable
       end
 
@@ -19,12 +21,10 @@ module Brightline
         MESSAGE_KEY = "Message",
       ].freeze
 
-      class_methods do
-        def call(event:, **_opts)
-          debug "Consuming using #{self} event #{event.inspect} ..."
-          new.handle_event(event).tap do
-            debug "... consumed"
-          end
+      def call(event:, **_opts)
+        debug "Consuming using #{self} event #{event.inspect} ..."
+        new.handle_event(event).tap do
+          debug "... consumed"
         end
       end
 
