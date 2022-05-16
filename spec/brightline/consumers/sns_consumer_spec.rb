@@ -4,7 +4,13 @@ require "spec_helper"
 
 RSpec.describe Brightline::Consumers::SnsConsumer, :mixin do
   describe ".call" do
-    subject { klass.call(event: event, context: {}) }
+    let(:ctx) do
+      double invoked_function_arn: "arn",
+             function_name: "fn",
+             memory_limit_in_mb: 0,
+             aws_request_id: "1"
+    end
+    subject { klass.call(event: event, context: ctx) }
 
     let(:handler) { ->(_) { true } }
 
