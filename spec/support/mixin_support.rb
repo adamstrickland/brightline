@@ -15,9 +15,19 @@ module MixinSupport
     let(:modified_class) { klass }
     let(:described_instance) { modified_class.new }
 
-    before do
-      # Object.const_set(klass_name, klass)
-      klass.send(:include, mixin)
+    before do |ex|
+      include! if include_mixin?(ex)
     end
+  end
+
+  def include!(module_to_include=nil)
+    module_to_include ||= mixin
+    modified_class.send(:include, module_to_include)
+  end
+
+  def include_mixin?(example)
+    return true unless example.metadata.keys.include?(:include)
+
+    example.metadata[:include]
   end
 end
