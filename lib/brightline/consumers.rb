@@ -9,6 +9,25 @@ require_relative "consumers/strategies"
 
 module Brightline
   module Consumers
-    IncompatibleConsumerError = Class.new(StandardError)
+    ConsumerError = Class.new(StandardError)
+
+    BatchFailureError = Class.new(ConsumerError)
+
+    BatchRollbackError = Class.new(BatchFailureError) do
+      def initialize(failures:, rollbacks:)
+        super
+
+        @failures = failures
+        @rollbacks = rollbacks
+      end
+
+      attr_reader :failures, :rollbacks
+
+      def inspect
+        super
+      end
+    end
+
+    IncompatibleConsumerError = Class.new(ConsumerError)
   end
 end

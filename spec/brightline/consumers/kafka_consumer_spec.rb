@@ -12,7 +12,7 @@ RSpec.describe Brightline::Consumers::KafkaConsumer, :mixin do
       modified_class.send(:define_method, :call, handler)
     end
 
-    context "when the event is an SNS event" do
+    context "when the event is a Kafka event" do
       let(:event) do
         {
           "records" => {
