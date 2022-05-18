@@ -37,7 +37,7 @@ module Brightline
       end
 
       def message_to_payload(message)
-        maybe = ->(obj){ obj.respond_to?(:deep_symbolize_keys) }
+        maybe = ->(obj) { obj.respond_to?(:deep_symbolize_keys) }
 
         return message.deep_symbolize_keys if maybe.call(message)
 

@@ -16,7 +16,7 @@ module Brightline
         extend ActiveSupport::Concern
 
         def payloads_from_event(event, context)
-          (event["records"] || []).flat_map do |partition, records|
+          (event["records"] || []).flat_map do |_partition, records|
             records.map do |record|
               decode_value(record["value"])
             end
@@ -39,4 +39,3 @@ module Brightline
     end
   end
 end
-
