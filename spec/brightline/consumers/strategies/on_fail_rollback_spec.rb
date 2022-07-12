@@ -37,7 +37,7 @@ RSpec.describe Brightline::Consumers::Strategies::OnFailRollback, :mixin do
         aggregate_failures do
           expect(modified_class).to respond_to :on_fail_rollback
           modified_class.method(:on_fail_rollback).tap do |m|
-            expect(m.parameters).to include [:keyreq, :with]
+            expect(m.parameters).to include %i[keyreq with]
           end
         end
       end
@@ -46,7 +46,7 @@ RSpec.describe Brightline::Consumers::Strategies::OnFailRollback, :mixin do
         describe "when using a proc" do
           before do
             modified_class.class_eval do
-              on_fail_rollback with: ->(_){ true }
+              on_fail_rollback with: ->(_) { true }
             end
           end
 

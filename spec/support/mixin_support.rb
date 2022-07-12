@@ -20,7 +20,7 @@ module MixinSupport
     end
   end
 
-  def include!(module_to_include=nil)
+  def include!(module_to_include = nil)
     module_to_include ||= mixin
     modified_class.send(:include, module_to_include)
   end

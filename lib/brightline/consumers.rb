@@ -22,10 +22,6 @@ module Brightline
       end
 
       attr_reader :failures, :rollbacks
-
-      def inspect
-        super
-      end
     end
 
     IncompatibleConsumerError = Class.new(ConsumerError)

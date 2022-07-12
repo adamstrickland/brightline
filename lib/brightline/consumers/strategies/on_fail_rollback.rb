@@ -9,7 +9,7 @@ module Brightline
         extend ActiveSupport::Concern
 
         included do
-          raise IncompatibleConsumerError unless self.include? KafkaConsumer
+          raise IncompatibleConsumerError unless include? KafkaConsumer
         end
 
         class_methods do
@@ -34,10 +34,11 @@ module Brightline
             rollback_method = :rollback_with
 
             define_method rollback_method do |payloads_results_verdicts|
-              executor = if with.is_a? Proc
+              executor = case with
+                         when Proc
                            with
-                         elsif with.is_a?(String) || with.is_a?(Symbol)
-                           self.method(with)
+                         when String, Symbol
+                           method(with)
                          end
 
               raise ArgumentError unless executor.arity == 1
@@ -56,6 +57,7 @@ module Brightline
 
               verdicts = results.map do |r|
                 next false if r.is_a?(StandardError)
+
                 true
               end
 
@@ -65,7 +67,7 @@ module Brightline
             define_method :consume_payloads_with_rollback do |payloads|
               p_w_r_a_v = payloads_with_results_and_verdicts(payloads)
 
-              success_predicate = ->(prv){ prv[2] }
+              success_predicate = ->(prv) { prv[2] }
 
               return p_w_r_a_v if p_w_r_a_v.all?(&success_predicate)
 
@@ -86,14 +88,13 @@ module Brightline
               raise e
             rescue StandardError => e
               error(e)
-              raise BatchFailureError.new(e)
+              raise BatchFailureError, e
             end
 
             alias_method :consume_payloads_without_rollback, :consume_payloads
             alias_method :consume_payloads, :consume_payloads_with_rollback
           end
         end
-
       end
     end
   end
