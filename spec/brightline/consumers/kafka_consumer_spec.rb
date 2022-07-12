@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Brightline::Consumers::SnsConsumer, :mixin do
+RSpec.describe Brightline::Consumers::KafkaConsumer, :mixin do
   describe ".call" do
     subject { modified_class.call(event: event, context: {}) }
 
@@ -12,16 +12,17 @@ RSpec.describe Brightline::Consumers::SnsConsumer, :mixin do
       modified_class.send(:define_method, :call, handler)
     end
 
-    context "when the event is an SNS event" do
+    context "when the event is a Kafka event" do
       let(:event) do
         {
-          "Records" => [
-            {
-              "Sns" => {
-                "Message" => value,
+          "records" => {
+            "topicname-0" => [
+              {
+                "topic" => "topicname",
+                "value" => value,
               },
-            },
-          ],
+            ],
+          },
         }
       end
       let(:payload) do
@@ -30,8 +31,8 @@ RSpec.describe Brightline::Consumers::SnsConsumer, :mixin do
           "qux" => "quux",
         }
       end
-      let(:raw_value) { payload }
-      let(:value) { raw_value }
+      let(:raw_value) { payload.to_json }
+      let(:value) { Base64.encode64(raw_value) }
 
       context "and the message is a raw string" do
         let(:raw_value) { "some string" }
@@ -41,17 +42,10 @@ RSpec.describe Brightline::Consumers::SnsConsumer, :mixin do
       end
 
       context "and the message is JSON" do
-        context "pre-parsed into an object" do
-          it { is_expected.to be_an Array }
-          it { is_expected.to match_array [payload.deep_symbolize_keys] }
-        end
+        let(:raw_value) { JSON.dump(payload) }
 
-        context "still unparsed string" do
-          let(:raw_value) { JSON.dump(payload) }
-
-          it { is_expected.to be_an Array }
-          it { is_expected.to match_array [payload.deep_symbolize_keys] }
-        end
+        it { is_expected.to be_an Array }
+        it { is_expected.to match_array [payload.deep_symbolize_keys] }
       end
 
       context "and when the underlying call raises an error" do
